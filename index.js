@@ -1,6 +1,5 @@
 require("dotenv").config();
-
-const mongoose = require("mongoose");
+// const mongoose = require("mongoose");
 const { connection } = require("./connection");
 const userRoutes = require("./routes/user.routes");
 const notesRoutes = require("./routes/notes.routes");
@@ -27,16 +26,7 @@ const connectDB = async () => {
 };
 
 connectDB().then(() => {
-  app.listen(PORT, () => {
+  app.listen(process.env.SERVER_PORT, () => {
     console.log("listening for requests");
   });
 });
-// app.listen(process.env.SERVER_PORT, async () => {
-//   try {
-//     await connection;
-//     console.log("Connected To Database Successfully");
-//     console.log("Server running at port :", process.env.SERVER_PORT);
-//   } catch (err) {
-//     console.log("Connection to Database failed", err);
-//   }
-// });
