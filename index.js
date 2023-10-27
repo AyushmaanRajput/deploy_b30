@@ -16,19 +16,27 @@ app.use(express.json());
 app.use("/users", userRoutes);
 app.use("/notes", notesRoutes);
 
-app.listen(process.env.SERVER_PORT, async () => {
+const connectDB = async () => {
   try {
     await connection;
-    console.log("Connected To Database Successfully");
-    console.log("Server running at port :", process.env.SERVER_PORT);
-  } catch (err) {
-    console.log("Connection to Database failed", err);
+    console.log(`MongoDB Connected`);
+  } catch (error) {
+    console.log(error);
+    process.exit(1);
   }
-});
+};
 
-process.on("SIGINT", () => {
-  mongoose.connection.close(() => {
-    console.log("Database connection closed");
-    process.exit(0);
+connectDB().then(() => {
+  app.listen(PORT, () => {
+    console.log("listening for requests");
   });
 });
+// app.listen(process.env.SERVER_PORT, async () => {
+//   try {
+//     await connection;
+//     console.log("Connected To Database Successfully");
+//     console.log("Server running at port :", process.env.SERVER_PORT);
+//   } catch (err) {
+//     console.log("Connection to Database failed", err);
+//   }
+// });
