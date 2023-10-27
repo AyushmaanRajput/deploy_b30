@@ -29,4 +29,4 @@ connectDB().then(() => {
   app.listen(process.env.SERVER_PORT, () => {
     console.log("listening for requests");
   });
-});
+}).catch(err=>console.log(err));
